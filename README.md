@@ -11,7 +11,7 @@
 
 ### Полка
 
-<img width="1151" height="1242" alt="image" src="https://github.com/user-attachments/assets/04285a5f-2ef5-466f-9449-96e52fab92c8" />
+<img width="1088" height="720" alt="image" src="https://github.com/user-attachments/assets/5b3163a5-38f4-49f2-8f30-a7685c77f0c2" />
 
 
 ### Настройки
