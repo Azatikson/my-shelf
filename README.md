@@ -104,9 +104,9 @@
     ├── css/
     │   └── style.css
     ├── js/
-       ├── storage.js
-       ├── api.js
-       └── app.js
+        ├── storage.js
+        ├── api.js
+        └── app.js
 
 
 ## Планы по развитию
