@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Моя Полка</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__inner">
+      <h1 class="header__logo">Моя Полка</h1>
+      <div class="header__right">
+        <nav class="header__nav">
+          <button class="tab tab--active" data-tab="shelf">Полка</button>
+          <button class="tab" data-tab="search">Найти книгу</button>
+          <button class="tab" data-tab="settings">Настройки</button>
+        </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Сменить тему">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section class="tab-content tab-content--active" id="tab-shelf">
+      <div id="goal-panel" class="goal-panel"></div>
+      <div id="stats-panel" class="stats-panel"></div>
+
+      <div class="shelf-filters">
+        <select id="filter-status" class="shelf-filters__select">
+          <option value="">Все статусы</option>
+          <option value="planned">В планах</option>
+          <option value="reading">Читаю</option>
+          <option value="finished">Прочитано</option>
+          <option value="dropped">Брошено</option>
+        </select>
+        <select id="filter-sort" class="shelf-filters__select">
+          <option value="updated">Недавно изменённые</option>
+          <option value="added">Недавно добавленные</option>
+          <option value="rating">По оценке</option>
+          <option value="title">По названию</option>
+          <option value="author">По автору</option>
+        </select>
+        <input
+          type="text"
+          id="filter-search"
+          class="shelf-filters__input"
+          placeholder="Поиск по названию, автору, заметке..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div id="shelf-list" class="shelf-list"></div>
+
+      <div id="shelf-empty" class="empty-state">
+        <h2 class="empty-state__title">Полка пока пуста</h2>
+        <p class="empty-state__text">Перейди на вкладку «Найти книгу», чтобы добавить первую.</p>
+      </div>
+
+      <div id="recommendations" class="recommendations"></div>
+    </section>
+
+    <section class="tab-content" id="tab-search">
+      <form class="search-form" id="search-form">
+        <input
+          type="text"
+          id="search-input"
+          class="search-form__input"
+          placeholder="Название книги или автор..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" class="search-form__button">Найти</button>
+      </form>
+
+      <div class="genre-section">
+        <h2 class="genre-section__title">Или выбери жанр</h2>
+        <div class="genre-chips" id="genre-chips">
+          <button type="button" class="genre-chip" data-genre="fantasy">Фэнтези</button>
+          <button type="button" class="genre-chip" data-genre="science_fiction">Фантастика</button>
+          <button type="button" class="genre-chip" data-genre="mystery">Детектив</button>
+          <button type="button" class="genre-chip" data-genre="romance">Роман</button>
+          <button type="button" class="genre-chip" data-genre="history">История</button>
+          <button type="button" class="genre-chip" data-genre="philosophy">Философия</button>
+          <button type="button" class="genre-chip" data-genre="psychology">Психология</button>
+          <button type="button" class="genre-chip" data-genre="business">Бизнес</button>
+          <button type="button" class="genre-chip" data-genre="computer_science">Программирование</button>
+          <button type="button" class="genre-chip" data-genre="biography">Биография</button>
+          <button type="button" class="genre-chip" data-genre="adventure">Приключения</button>
+          <button type="button" class="genre-chip" data-genre="poetry">Поэзия</button>
+        </div>
+      </div>
+
+      <div id="search-results" class="search-results"></div>
+    </section>
+
+    <section class="tab-content" id="tab-settings">
+      <div class="settings-block">
+        <h2 class="settings-block__title">Цель на год</h2>
+        <p class="settings-block__text">
+          Сколько книг хочешь прочитать в этом году? Прогресс будет виден на полке.
+        </p>
+
+        <div class="goal-editor">
+          <button type="button" class="goal-editor__btn" id="goal-minus" aria-label="Минус">−</button>
+          <div class="goal-editor__counter">
+            <input
+              type="number"
+              id="goal-input"
+              class="goal-editor__input"
+              min="1"
+              max="365"
+              placeholder="0"
+            />
+            <span class="goal-editor__unit">книг</span>
+          </div>
+          <button type="button" class="goal-editor__btn" id="goal-plus" aria-label="Плюс">+</button>
+        </div>
+
+        <div class="goal-preview" id="goal-preview"></div>
+      </div>
+
+      <div class="settings-block">
+        <h2 class="settings-block__title">Резервная копия</h2>
+        <p class="settings-block__text">
+          Все данные хранятся только в твоём браузере. Регулярно делай экспорт,
+          чтобы не потерять полку при очистке кэша.
+        </p>
+        <div class="settings-block__actions">
+          <button id="btn-export" class="btn btn--primary">Скачать JSON</button>
+          <label class="btn btn--ghost">
+            Загрузить JSON
+            <input type="file" id="file-import" accept="application/json" hidden />
+          </label>
+          <button id="btn-export-md" class="btn btn--ghost">Экспорт в Markdown</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-content" id="tab-book">
+      <button type="button" id="book-back" class="back-button">← Назад</button>
+
+      <div class="book-page">
+        <div class="book-page__header">
+          <img id="book-page-cover" class="book-page__cover" alt="" />
+          <div class="book-page__info">
+            <h1 id="book-page-title" class="book-page__title"></h1>
+            <p id="book-page-authors" class="book-page__authors"></p>
+            <p id="book-page-meta" class="book-page__meta"></p>
+            <div id="book-page-genres" class="book-page__genres"></div>
+            <div id="book-page-add" class="book-page__add"></div>
+          </div>
+        </div>
+
+        <div class="book-page__section">
+          <h2 class="book-page__section-title">О чём эта книга</h2>
+          <p id="book-page-description" class="book-page__description"></p>
+        </div>
+
+        <div class="book-page__section" id="book-page-shelf"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
